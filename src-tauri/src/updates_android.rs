@@ -9,8 +9,8 @@ use std::time::Duration;
 use serde_json::{json, Value};
 use tauri::{AppHandle, Emitter, Manager};
 
-const LATEST: &str = "https://github.com/GhostOFFantasy/zvuk-glass/releases/latest/download/latest.json";
-const APK: &str = "https://github.com/GhostOFFantasy/zvuk-glass/releases/latest/download/Zvuk-Glass-Android.apk";
+const LATEST: &str = "https://github.com/GhostOFFantasy/zvuk-glass-android/releases/latest/download/latest.json";
+const APK: &str = "https://github.com/GhostOFFantasy/zvuk-glass-android/releases/latest/download/Zvuk-Glass-Android.apk";
 const FIRST_CHECK: Duration = Duration::from_secs(8);
 const EVERY: Duration = Duration::from_secs(4 * 3600);
 
