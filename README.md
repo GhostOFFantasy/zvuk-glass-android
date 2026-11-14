@@ -47,7 +47,7 @@ npm install
 npm test               # проверочный APK для ARM64 → dist/android/Zvuk-Glass-<версия>-test.apk
 npm run build          # ARM64 + ARMv7 → dist/android/Zvuk-Glass-<версия>.apk
 npm run release        # выпуск: +1 к последней цифре версии
-npm run release -- 3   # +3 (по числу изменений)
+npm run release -- 3   # +3 по числу изменений; каждая цифра 0–9 с переносом (1.0.9 + 1 → 1.1.0)
 ```
 
 APK подписывается ключом `%USERPROFILE%\.tauri\zvuk-glass-android.jks`, пароль лежит рядом в `zvuk-glass-android.properties`. **Сохраните копию обоих файлов**: без них установленные приложения не примут обновление.

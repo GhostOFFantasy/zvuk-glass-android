@@ -5,7 +5,7 @@
  * обновиться (установку подтверждает Android).
  *
  *   npm run release              → 1.0.0 → 1.0.1
- *   npm run release -- 3         → +3 к последней цифре (по числу изменений): 1.0.1 → 1.0.4
+ *   npm run release -- 3         → +3 по числу изменений: 1.0.1 → 1.0.4 (каждая цифра 0–9, 1.0.9 + 1 → 1.1.0)
  *   npm run release -- 1.2.0     → ровно эта версия
  *   npm run release -- current   → выпустить текущую версию без изменения номера
  *   добавьте --notes "что нового" — текст появится в описании релиза и в приложении
@@ -71,9 +71,12 @@ const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
 const cur = pkg.version;
 let next = cur;
 if (bump !== 'current') {
-  const [ma, mi, pa] = cur.split('.').map(Number);
-  if (/^\+?\d+$/.test(bump)) next = `${ma}.${mi}.${pa + Number(bump)}`;
-  else if (/^\d+\.\d+\.\d+$/.test(bump)) next = bump;
+  if (/^\+?\d+$/.test(bump)) {
+    // версия как трёхзначное число, каждая цифра 0–9 с переносом: 1.0.9 + 1 → 1.1.0
+    const [ma, mi, pa] = cur.split('.').map(Number);
+    const n = ma * 100 + Math.min(mi, 9) * 10 + Math.min(pa, 9) + Number(bump);
+    next = `${Math.floor(n / 100)}.${Math.floor(n / 10) % 10}.${n % 10}`;
+  } else if (/^\d+\.\d+\.\d+$/.test(bump)) next = bump;
   else fail(`Непонятная версия «${bump}». Используйте число изменений, current или x.y.z`);
 }
 const tag = 'v' + next;
